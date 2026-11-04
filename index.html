@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Control Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .chat-container { width: 100%; max-width: 600px; background: #1e1e1e; border-radius: 8px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; flex-direction: column; height: 80vh; }
+        .chat-box { flex: 1; overflow-y: auto; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .message { padding: 10px 14px; border-radius: 6px; max-width: 80%; line-height: 1.4; }
+        .user { background: #007acc; color: white; align-self: flex-end; }
+        .ai { background: #2d2d2d; color: #f1f1f1; align-self: flex-start; border: 1px solid #444; }
+        .input-group { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #444; background: #2a2a2a; color: white; outline: none; }
+        button { padding: 12px 20px; background: #007acc; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #005999; }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <h2>O.S.A - AI Control Panel</h2>
+        <div class="chat-box" id="chatBox">
+            <div class="message ai">Xin chào! Hệ thống O.S.A đã sẵn sàng nhận lệnh điều khiển từ bạn.</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="Nhập câu lệnh hoặc yêu cầu..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Gửi</button>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(sender, text) {
+            const chatBox = document.getElementById('chatBox');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${sender}`;
+            msgDiv.innerText = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendMessage('user', text);
+            input.value = '';
+
+            setTimeout(() => {
+                appendMessage('ai', `Đã tiếp nhận lệnh: "${text}". Đang xử lý hệ thống...`);
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+
+</body>
+          </html>
+          
